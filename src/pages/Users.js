@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [newUser, setNewUser] = useState({ name: '', email: '' });
+  const [editingUser, setEditingUser] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -21,12 +23,31 @@ const Users = () => {
     fetchUsers();
   }, []);
 
-  const handleEdit = (id) => {
-    console.log('Edit user with ID:', id);
+  const handleAdd = () => {
+    setUsers([...users, { id: users.length + 1, ...newUser }]);
+    setNewUser({ name: '', email: '' });
+  };
+
+  const handleEdit = (user) => {
+    setEditingUser(user);
+  };
+
+  const handleUpdate = () => {
+    setUsers(users.map(user => user.id === editingUser.id ? editingUser : user));
+    setEditingUser(null);
   };
 
   const handleDelete = (id) => {
-    console.log('Delete user with ID:', id);
+    setUsers(users.filter(user => user.id !== id));
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (editingUser) {
+      setEditingUser({ ...editingUser, [name]: value });
+    } else {
+      setNewUser({ ...newUser, [name]: value });
+    }
   };
 
   if (loading) {
@@ -36,6 +57,27 @@ const Users = () => {
   return (
     <div>
       <h1>User Accounts</h1>
+      <div>
+        <input
+          type="text"
+          name="name"
+          value={editingUser ? editingUser.name : newUser.name}
+          onChange={handleChange}
+          placeholder="Name"
+        />
+        <input
+          type="email"
+          name="email"
+          value={editingUser ? editingUser.email : newUser.email}
+          onChange={handleChange}
+          placeholder="Email"
+        />
+        {editingUser ? (
+          <button onClick={handleUpdate}>Update User</button>
+        ) : (
+          <button onClick={handleAdd}>Add User</button>
+        )}
+      </div>
       <table>
         <thead>
           <tr>
@@ -52,7 +94,7 @@ const Users = () => {
               <td>{user.name}</td>
               <td>{user.email}</td>
               <td>
-                <button onClick={() => handleEdit(user.id)}>Edit</button>
+                <button onClick={() => handleEdit(user)}>Edit</button>
                 <button onClick={() => handleDelete(user.id)}>Delete</button>
               </td>
             </tr>
@@ -64,3 +106,4 @@ const Users = () => {
 };
 
 export default Users;
+

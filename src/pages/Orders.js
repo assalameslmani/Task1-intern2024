@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
+
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [editingOrder, setEditingOrder] = useState(null);
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const response = await fetch('https://jsonplaceholder.typicode.com/comments');
         const data = await response.json();
-        // Simulate order data by adding customer and total
         const orderData = data.map((order, index) => ({
           id: order.id,
           customer: order.name,
-          total: (index + 1) * 20, // Dummy total
-          status: 'Pending', // Dummy status
+          total: (index + 1) * 20,
+          status: 'Pending',
         }));
         setOrders(orderData);
         setLoading(false);
@@ -27,16 +28,16 @@ const Orders = () => {
     fetchOrders();
   }, []);
 
-  const handleView = (id) => {
-    console.log('View details of order with ID:', id);
-  };
-
   const handleUpdateStatus = (id, status) => {
-    console.log('Update status of order with ID:', id, 'to:', status);
+    setOrders(orders.map(order => order.id === id ? { ...order, status } : order));
   };
 
   const handleDelete = (id) => {
-    console.log('Delete order with ID:', id);
+    setOrders(orders.filter(order => order.id !== id));
+  };
+
+  const handleView = (order) => {
+    setEditingOrder(order);
   };
 
   if (loading) {
@@ -64,7 +65,7 @@ const Orders = () => {
               <td>${order.total}</td>
               <td>{order.status}</td>
               <td>
-                <button onClick={() => handleView(order.id)}>View</button>
+                <button onClick={() => handleView(order)}>View</button>
                 <button onClick={() => handleUpdateStatus(order.id, 'Shipped')}>Ship</button>
                 <button onClick={() => handleUpdateStatus(order.id, 'Delivered')}>Deliver</button>
                 <button onClick={() => handleDelete(order.id)}>Delete</button>
@@ -73,9 +74,18 @@ const Orders = () => {
           ))}
         </tbody>
       </table>
+
+      {editingOrder && (
+        <div>
+          <h2>Order Details</h2>
+          <p>ID: {editingOrder.id}</p>
+          <p>Customer: {editingOrder.customer}</p>
+          <p>Total: ${editingOrder.total}</p>
+          <p>Status: {editingOrder.status}</p>
+        </div>
+      )}
     </div>
   );
 };
 
 export default Orders;
-
