@@ -3,35 +3,46 @@ import React, { useState, useEffect } from 'react';
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
- 
   useEffect(() => {
     const fetchProducts = async () => {
-      
-      const productData = [
-        { id: 1, name: 'Product 1', price: 100, category: 'Category 1' },
-        { id: 2, name: 'Product 2', price: 200, category: 'Category 2' },
-      ];
-      setProducts(productData);
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+        const data = await response.json();
+        // Simulate product data by adding price and category
+        const productData = data.map((product, index) => ({
+          id: product.id,
+          name: product.title,
+          price: (index + 1) * 10, // Dummy price
+          category: 'Category ' + ((index % 3) + 1), // Dummy category
+        }));
+        setProducts(productData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+        setLoading(false);
+      }
     };
 
     fetchProducts();
   }, []);
 
   const handleAdd = () => {
-  
     console.log('Add product');
   };
 
   const handleEdit = (id) => {
-
     console.log('Edit product with ID:', id);
   };
 
   const handleDelete = (id) => {
-   
     console.log('Delete product with ID:', id);
   };
+
+  if (loading) {
+    return <p>Loading products...</p>;
+  }
 
   return (
     <div>
@@ -67,3 +78,4 @@ const Products = () => {
 };
 
 export default Products;
+

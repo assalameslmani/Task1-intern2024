@@ -1,36 +1,47 @@
 import React, { useState, useEffect } from 'react';
 
-
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchOrders = async () => {
-
-      const orderData = [
-        { id: 1, customer: 'John Doe', total: 150, status: 'Pending' },
-        { id: 2, customer: 'Jane Smith', total: 250, status: 'Shipped' },
-      ];
-      setOrders(orderData);
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/comments');
+        const data = await response.json();
+        // Simulate order data by adding customer and total
+        const orderData = data.map((order, index) => ({
+          id: order.id,
+          customer: order.name,
+          total: (index + 1) * 20, // Dummy total
+          status: 'Pending', // Dummy status
+        }));
+        setOrders(orderData);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching orders:', error);
+        setLoading(false);
+      }
     };
 
     fetchOrders();
   }, []);
 
   const handleView = (id) => {
-
     console.log('View details of order with ID:', id);
   };
 
   const handleUpdateStatus = (id, status) => {
-
     console.log('Update status of order with ID:', id, 'to:', status);
   };
 
   const handleDelete = (id) => {
-    
     console.log('Delete order with ID:', id);
   };
+
+  if (loading) {
+    return <p>Loading orders...</p>;
+  }
 
   return (
     <div>

@@ -3,30 +3,35 @@ import React, { useState, useEffect } from 'react';
 
 const Users = () => {
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  
   useEffect(() => {
     const fetchUsers = async () => {
-     
-      const userData = [
-        { id: 1, name: 'John Doe', email: 'john@example.com' },
-        { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
-      ];
-      setUsers(userData);
+      try {
+        const response = await fetch('https://jsonplaceholder.typicode.com/users');
+        const data = await response.json();
+        setUsers(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        setLoading(false);
+      }
     };
 
     fetchUsers();
   }, []);
 
   const handleEdit = (id) => {
-
     console.log('Edit user with ID:', id);
   };
 
   const handleDelete = (id) => {
-
     console.log('Delete user with ID:', id);
   };
+
+  if (loading) {
+    return <p>Loading users...</p>;
+  }
 
   return (
     <div>
