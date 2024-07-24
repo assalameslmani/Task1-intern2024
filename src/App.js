@@ -5,6 +5,8 @@ import Dashboard from './pages/Dashboard';
 import Products from './pages/Products';
 import Orders from './pages/Orders';
 import Users from './pages/Users';
+import Login from './pages/Login';
+import Register from './pages/Register';
 import './App.css';
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </div>
     </div>
