@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import '../App.css'; // Ensure this is imported
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -9,7 +9,6 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Perform login logic (e.g., authenticate with the backend)
     console.log('Login:', { email, password });
     navigate('/'); // Redirect to the dashboard after successful login
   };

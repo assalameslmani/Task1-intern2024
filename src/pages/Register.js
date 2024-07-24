@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../App.css'; // Ensure this is imported
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -13,7 +14,6 @@ const Register = () => {
       alert('Passwords do not match!');
       return;
     }
-    // Perform registration logic (e.g., create a new user in the backend)
     console.log('Register:', { email, password });
     navigate('/login'); // Redirect to the login page after successful registration
   };

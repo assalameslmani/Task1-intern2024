@@ -1,5 +1,6 @@
 import React from 'react';
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+import '../App.css'; 
 
 const data = [
   { name: 'Jan', sales: 400 },
@@ -11,7 +12,7 @@ const data = [
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className="dashboard-container">
       <h1>Dashboard</h1>
       <div className="stats">
         <div>Total Sales: $10000</div>
@@ -19,15 +20,18 @@ const Dashboard = () => {
         <div>Total Products: 150</div>
         <div>Total Users: 200</div>
       </div>
-      <LineChart width={600} height={300} data={data}>
-        <Line type="monotone" dataKey="sales" stroke="#8884d8" />
-        <CartesianGrid stroke="#ccc" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-      </LineChart>
+      <div className="recharts-wrapper">
+        <LineChart width={600} height={300} data={data}>
+          <Line type="monotone" dataKey="sales" stroke="#8884d8" />
+          <CartesianGrid stroke="#ccc" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+        </LineChart>
+      </div>
     </div>
   );
 };
 
 export default Dashboard;
+

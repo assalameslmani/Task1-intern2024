@@ -1,38 +1,213 @@
-.App {
-  display: flex;
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
 }
 
+/* Sidebar Styles */
 .sidebar {
   width: 200px;
-  background: #f4f4f4;
-  padding: 10px;
+  height: 100vh;
+  background-color: #3be0fd;
+  color: white;
+  padding: 20px;
+  position: fixed;
+  transition: transform 0.3s ease;
 }
 
-.sidebar a {
-  display: block;
-  margin: 10px 0;
+.sidebar.closed {
+  transform: translateX(-100%);
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.toggle-button {
+  background-color: white;
+  border: none;
+  color: #3be0fd;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.toggle-button:hover {
+  background-color: rgba(255, 255, 255, 0.76);
+}
+
+.sidebar h2 {
+  text-align: center;
+}
+
+.sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 15px 0;
+}
+
+.sidebar ul li a {
+  color: white;
   text-decoration: none;
 }
 
-.content {
-  flex: 1;
+.sidebar ul li a:hover {
+  text-decoration: underline;
+}
+
+
+/* Main Content Styles */
+.main-content {
+  margin-left: 220px;
   padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.sidebar.closed ~ .main-content {
+  margin-left: 0;
+}
+/* Dashboard Styles */
+.dashboard-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.dashboard-container .card {
+  width: 250px;
+  height: 150px;
+  background-color: #3be0fd;
+  color: white;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.dashboard-container .card h2 {
+  margin: 0;
+  font-size: 2em;
+
+}
+
+.dashboard-container .card p {
+  margin: 10px 0 0 0;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+/* Form Styles */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+/* Button Styles */
+button {
+  padding: 10px 15px;
+  background-color: #3be0fd;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  margin-right: 5px;
+  text-align: center;
+}
+
+button:hover {
+  background-color: #3be0fd;
+}
+
+/* Login and Register Styles */
+.login-container, .register-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.login-container h1, .register-container h1 {
+  text-align: center;
+}
+
+/* Dashboard Page Styles */
+.dashboard-container {
+  padding: 20px;
+}
+
+.dashboard-container h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
 }
 
 .stats {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
-@media (max-width: 768px) {
-  .sidebar {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-  }
+.stats div {
+  background-color: #007bff;
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 200px;
+  text-align: center;
+}
 
-  .content {
-    padding: 10px;
-  }
+.stats div:nth-child(1) {
+  background-color: #28a745; /* Customize each stat box if needed */
+}
+
+.stats div:nth-child(2) {
+  background-color: #dc3545;
+}
+
+.stats div:nth-child(3) {
+  background-color: #ffc107;
+}
+
+.stats div:nth-child(4) {
+  background-color: #17a2b8;
+}
+
+/* Chart Styles */
+.recharts-wrapper {
+  margin-top: 20px;
 }
