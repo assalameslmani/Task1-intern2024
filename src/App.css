@@ -211,3 +211,61 @@ button:hover {
 .recharts-wrapper {
   margin-top: 20px;
 }
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .main-content {
+    margin-left: 220px;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: relative;
+    box-shadow: none;
+  }
+
+  .sidebar.closed {
+    transform: translateX(-100%);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .stats {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .stats div {
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .toggle-button {
+    display: block;
+    margin: 10px auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-container h1 {
+    font-size: 1.8em;
+  }
+
+  .stats div {
+    padding: 15px;
+    font-size: 0.9em;
+  }
+
+  .recharts-wrapper {
+    margin-top: 15px;
+  }
+}
